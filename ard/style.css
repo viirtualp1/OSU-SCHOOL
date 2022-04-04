@@ -1,0 +1,15 @@
+#game {
+    width: 1280px;
+    height: 720px;
+}
+
+#circle {
+    width: 125px;
+    height: 125px;
+    background: url("hitcircle.png");
+}
+
+img {
+    margin-left: 2.5rem;
+    margin-top: 2.2rem;
+}
