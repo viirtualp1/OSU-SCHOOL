@@ -2,19 +2,45 @@ const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min
 
 const game = document.querySelector("#game");
 
-const mathExamples = [
-    { example: '2 + 2', answer: 4 },
-    { example: '3 + 5', answer: 8 },
-    { example: '6 + 3', answer: 9 },
-    { example: '2 * 3', answer: 6 },
-    { example: '1 * 4', answer: 4 },
-    { example: '7 - 2', answer: 5 },
-    { example: '6 - 3', answer: 3 },
-]
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+  
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+}
 
+
+function randNumbers() {
+    let numbers = [];
+
+    for (let i = 0; i < 2; i++) {
+        numbers.push(getRandId(0, 10    ));
+    }
+
+    return numbers
+}
 
 function init() {
-    mathExampleCreate = mathExample();
+    let numbers = [];
+
+    for (let i = 0; i < 4; i++) {
+        numbers.push(randNumbers());
+    }
+
+    const mathExamples = [
+        { example: `${numbers[0][0]} + ${numbers[0][1]}`, answer: numbers[0][0] + numbers[0][1]},
+        { example: `${numbers[1][0]} + ${numbers[1][1]}`, answer: numbers[1][0] + numbers[1][1]},
+        { example: `${numbers[2][0]} + ${numbers[2][1]}`, answer: numbers[2][0] + numbers[2][1]},
+        { example: `${numbers[3][0]} + ${numbers[3][1]}`, answer: numbers[3][0] + numbers[3][1]},
+    ]
+
+    mathExampleCreate = mathExample(mathExamples);
 
     createCircle([mathExampleCreate.answer - getRandId(1, 3), mathExampleCreate.answer + getRandId(1, 2), mathExampleCreate.answer])
     checkAnswer(mathExampleCreate.answer);
@@ -29,30 +55,38 @@ function checkAnswer(correctAnswer) {
         circle.addEventListener("click", () => {
             circle.childNodes[0].id == correctAnswer ? alert('Правильно!') : alert('Неправильно!')
 
-            location.reload();
+            clearCircles();
+            init();
         });
     }
 }
 
-function mathExample() {
-    example = mathExamples[getRandId(0, mathExamples.length)];
+function mathExample(numbers) {
+    example = numbers[getRandId(0, numbers.length)];
     document.querySelector('#math-example').innerHTML = `${example.example} = ?`;
-
+ 
     return example
 }
 
 function createCircle(circleNumber = [num1, num2, num3]) {
+    shuffle(circleNumber);
+
     for (let i = 0; i < 3; i++) {
         const circle = document.createElement("div");
         const img = document.createElement("img");
         
         const randIdLeft = getRandId(0, 1000);
-        const randIdTop = getRandId(0, 200);
+        const randIdTop = getRandId(0, 100);
 
         img.src = `default-${circleNumber[i]}.png`;
-        img.id = circleNumber[i];
-        circle.appendChild(img);
-    
+
+        if (circleNumber[i] > 9) { 
+            circle.innerHTML = `<p class="circle-text" id="${circleNumber[i]}">${circleNumber[i]}</p>` 
+        } else {
+            img.id = circleNumber[i];
+            circle.appendChild(img);
+        }
+
         circle.className = `circle`;
         circle.id = `circle${i}`;
         circle.style.marginLeft = `${randIdLeft}px`
@@ -60,4 +94,8 @@ function createCircle(circleNumber = [num1, num2, num3]) {
     
         game.appendChild(circle);
     }
+}
+
+function clearCircles() {
+    game.innerHTML = ``;
 }

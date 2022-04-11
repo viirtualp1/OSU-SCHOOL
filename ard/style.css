@@ -25,3 +25,12 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
+
+.circle-text {
+    color: #fff;
+    margin-left: 2rem;
+    padding-top: 2rem;
+    font-size: 3.5rem;
+    font-weight: bold;
+    font-family: Arial;
+}
