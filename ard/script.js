@@ -1,3 +1,21 @@
+// array = ['fly me to the moon',
+//         'and let me play among the stars',
+//         'let me see what spring is like',
+//         'On Jupiter and Mars',
+//         'In other words',
+//         'In other words',
+//         '',
+//         'Fill my heart with song',
+//         'And let me sing for ever more',
+//         'You are all i long for,',
+//         'All i worship and adore',
+//     ]
+
+
+// for (let i = 0; i < array.length; i++) {
+//     alert(array[i])
+// }
+
 const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min
 
 const game = document.querySelector("#game");
@@ -20,7 +38,7 @@ function randNumbers() {
     let numbers = [];
 
     for (let i = 0; i < 2; i++) {
-        numbers.push(getRandId(0, 100));
+        numbers.push(getRandId(0, 50));
     }
 
     return numbers
@@ -35,9 +53,9 @@ function init() {
 
     const mathExamples = [
         { example: `${numbers[0][0]} + ${numbers[0][1]}`, answer: numbers[0][0] + numbers[0][1]},
-        { example: `${numbers[1][0]} + ${numbers[1][1]}`, answer: numbers[1][0] + numbers[1][1]},
-        { example: `${numbers[2][0]} + ${numbers[2][1]}`, answer: numbers[2][0] + numbers[2][1]},
-        { example: `${numbers[3][0]} + ${numbers[3][1]}`, answer: numbers[3][0] + numbers[3][1]},
+        { example: `${numbers[1][0]} * ${numbers[1][1]}`, answer: numbers[1][0] * numbers[1][1]},
+        { example: `${numbers[2][0]} / ${numbers[2][1]}`, answer: numbers[2][0] / numbers[2][1]},
+        { example: `${numbers[3][0]} - ${numbers[3][1]}`, answer: numbers[3][0] - numbers[3][1]},
     ]
 
     mathExampleCreate = mathExample(mathExamples);
@@ -80,7 +98,7 @@ function createCircle(circleNumber = [num1, num2, num3]) {
 
         img.src = `default-${circleNumber[i]}.png`;
 
-        if (circleNumber[i] > 9) { 
+        if (circleNumber[i] > 9 || !Number.isInteger(circleNumber[i])) { 
             circle.innerHTML = `<p class="circle-text" id="${circleNumber[i]}">${circleNumber[i]}</p>` 
         } else {
             img.id = circleNumber[i];
