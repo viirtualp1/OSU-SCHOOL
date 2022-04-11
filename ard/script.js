@@ -20,7 +20,7 @@ function randNumbers() {
     let numbers = [];
 
     for (let i = 0; i < 2; i++) {
-        numbers.push(getRandId(0, 10    ));
+        numbers.push(getRandId(0, 100));
     }
 
     return numbers
