@@ -1,24 +1,8 @@
-// array = ['fly me to the moon',
-//         'and let me play among the stars',
-//         'let me see what spring is like',
-//         'On Jupiter and Mars',
-//         'In other words',
-//         'In other words',
-//         '',
-//         'Fill my heart with song',
-//         'And let me sing for ever more',
-//         'You are all i long for,',
-//         'All i worship and adore',
-//     ]
-
-
-// for (let i = 0; i < array.length; i++) {
-//     alert(array[i])
-// }
-
 const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min
 
 const game = document.querySelector("#game");
+
+init();
 
 function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
@@ -33,13 +17,10 @@ function shuffle(array) {
     return array;
 }
 
-
 function randNumbers() {
     let numbers = [];
 
-    for (let i = 0; i < 2; i++) {
-        numbers.push(getRandId(0, 50));
-    }
+    for (let i = 0; i < 2; i++) numbers.push(getRandId(0, 20));
 
     return numbers
 }
@@ -54,7 +35,6 @@ function init() {
     const mathExamples = [
         { example: `${numbers[0][0]} + ${numbers[0][1]}`, answer: numbers[0][0] + numbers[0][1]},
         { example: `${numbers[1][0]} * ${numbers[1][1]}`, answer: numbers[1][0] * numbers[1][1]},
-        { example: `${numbers[2][0]} / ${numbers[2][1]}`, answer: numbers[2][0] / numbers[2][1]},
         { example: `${numbers[3][0]} - ${numbers[3][1]}`, answer: numbers[3][0] - numbers[3][1]},
     ]
 
@@ -63,8 +43,6 @@ function init() {
     createCircle([mathExampleCreate.answer - getRandId(1, 3), mathExampleCreate.answer + getRandId(1, 2), mathExampleCreate.answer])
     checkAnswer(mathExampleCreate.answer);
 }
-
-init();
 
 function checkAnswer(correctAnswer) {
     for (let i = 0; i < 3; i++) {
