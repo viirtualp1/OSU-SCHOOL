@@ -1,0 +1,40 @@
+.circle {
+    width: 125px;
+    height: 125px;
+    background: url("img/hitcircle.png");
+}
+
+img {
+    margin-left: 2.5rem;
+    margin-top: 2.2rem;
+}
+
+body {
+    background-image: url("img/1614441349_54-p-temnii-fon-dlya-chata-66.jpg");
+    background-size: cover;
+}
+
+#math-example {
+    color: #fff;
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+.circle-text {
+    color: #fff;
+    margin-left: 2rem;
+    padding-top: 1.5rem;
+    font-size: 3.5rem;
+    font-weight: bold;
+    font-family: Arial;
+}
+
+#settings-buttons { margin-top: 15rem; margin-left: 5rem; }
+
+.button-settings {
+    width: 20rem;
+    height: 3rem;
+    display: block;
+}
