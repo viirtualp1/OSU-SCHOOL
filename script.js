@@ -2,7 +2,12 @@ const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min
 
 const game = document.querySelector("#game");
 
+let maxRange = 20;
+
 init();
+
+function addRange() { maxRange += 5; init() }
+function decreaseRange() { maxRange > 20 ? maxRange -= 5 : 20; init() }
 
 function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
@@ -20,7 +25,7 @@ function shuffle(array) {
 function randNumbers() {
     let numbers = [];
 
-    for (let i = 0; i < 2; i++) numbers.push(getRandId(0, 20));
+    for (let i = 0; i < 2; i++) numbers.push(getRandId(0, maxRange));
 
     return numbers
 }
@@ -29,9 +34,7 @@ function init() {
     clearCircles();
     let numbers = [];
 
-    for (let i = 0; i < 4; i++) {
-        numbers.push(randNumbers());
-    }
+    for (let i = 0; i < 4; i++) numbers.push(randNumbers());
 
     const mathExamples = [
         { example: `${numbers[0][0]} + ${numbers[0][1]}`, answer: numbers[0][0] + numbers[0][1]},
@@ -42,6 +45,8 @@ function init() {
 
     createCircle([mathExampleCreate.answer - getRandId(1, 10), mathExampleCreate.answer + getRandId(1, 10), mathExampleCreate.answer])
     checkAnswer(mathExampleCreate.answer);
+
+    document.querySelector('#maxRangeText').innerHTML = `Макс. диапазон: ${maxRange}`;
 }
 
 function checkAnswer(correctAnswer) {

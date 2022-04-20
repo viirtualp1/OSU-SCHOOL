@@ -2,6 +2,7 @@
     width: 125px;
     height: 125px;
     background: url("img/hitcircle.png");
+    cursor: pointer;
 }
 
 img {
@@ -37,4 +38,14 @@ body {
     width: 20rem;
     height: 3rem;
     display: block;
+}
+
+#maxRangeText { 
+    margin-left: 1.5rem;
+    background: black;
+    width: 17rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    margin-top: 2rem;
 }
