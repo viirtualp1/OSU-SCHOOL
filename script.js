@@ -3,6 +3,7 @@ const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min
 const game = document.querySelector("#game");
 
 let maxRange = 20;
+let streakCounter = 0;
 
 init();
 
@@ -25,7 +26,7 @@ function shuffle(array) {
 function randNumbers() {
     let numbers = [];
 
-    for (let i = 0; i < 2; i++) numbers.push(getRandId(0, maxRange));
+    for (let i = 0; i < 2; i++) numbers.push(getRandId(1, maxRange));
 
     return numbers
 }
@@ -43,7 +44,7 @@ function init() {
 
     mathExampleCreate = mathExample(mathExamples);
 
-    createCircle([mathExampleCreate.answer - getRandId(1, 10), mathExampleCreate.answer + getRandId(1, 10), mathExampleCreate.answer])
+    createCircle([mathExampleCreate.answer - getRandId(1, 10), mathExampleCreate.answer + getRandId(1, 20), mathExampleCreate.answer])
     checkAnswer(mathExampleCreate.answer);
 
     document.querySelector('#maxRangeText').innerHTML = `Макс. диапазон: ${maxRange}`;
@@ -64,7 +65,7 @@ function checkAnswer(correctAnswer) {
 function notification(text, isCorrect) {
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: 'top-start',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
@@ -78,6 +79,13 @@ function notification(text, isCorrect) {
         icon: isCorrect ? 'success' : 'error',
         title: text
     })
+
+    streak(isCorrect);
+}
+
+function streak(isCorrect) {
+    streakCounter = isCorrect ? streakCounter += 1 : 0;
+    document.querySelector("#streak-text").innerHTML = `Комбо: ${streakCounter}`;
 }
 
 function mathExample(numbers) {

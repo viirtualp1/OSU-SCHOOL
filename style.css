@@ -41,11 +41,30 @@ body {
 }
 
 #maxRangeText { 
-    margin-left: 1.5rem;
+    margin-left: 1rem;
     background: black;
-    width: 17rem;
+    width: 18rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
     margin-top: 2rem;
+}
+
+#add-range-btn {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#decrease-range-btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#streak-text {
+    font-size: 2rem;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 4rem;
 }
