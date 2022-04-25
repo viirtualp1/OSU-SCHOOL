@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-sm">
                 <div id="settings-buttons">
-                    <button class="btn btn-primary button-settings" onclick="init()">Обновить</button>
+                    <button class="btn btn-primary button-settings" onclick="reloadGame(false)">Обновить</button>
                     <hr>
                     <button class="btn btn-primary button-settings" id="add-range-btn" onclick="addRange()">Увеличить диапазон</button>
                     <button class="btn btn-primary button-settings" id="decrease-range-btn" onclick="decreaseRange()">Уменьшить диапазон</button>
@@ -40,6 +40,10 @@
                 </div>
             </div>
             <div class="col mt-3">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" id="progress-bar-timer" style="width: 100%"></div>
+                </div>
+
                 <div id="math-example"></div>
 
                 <div id="game"></div>
