@@ -1,9 +1,12 @@
-const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min
+const range = (start, stop, step = 1) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
+const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const game = document.querySelector("#game");
+const MiAudio = document.getElementById('MiAudio');
 
 let maxRange = 20;
 let streakCounter = 0;
+let indexMusic = 0;
 
 init();
 
@@ -62,6 +65,13 @@ function checkAnswer(correctAnswer) {
     }
 }
 
+
+function playMusic() {
+    indexMusic += 1;
+
+    MiAudio.src = `mus/${indexMusic}.mp3`
+}
+
 function notification(text, isCorrect) {
     const Toast = Swal.mixin({
         toast: true,
@@ -81,6 +91,7 @@ function notification(text, isCorrect) {
     })
 
     streak(isCorrect);
+    playMusic();
 }
 
 function streak(isCorrect) {
