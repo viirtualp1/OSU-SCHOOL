@@ -1,70 +1,73 @@
 .circle {
-    width: 125px;
-    height: 125px;
-    background: url("img/hitcircle.png");
-    cursor: pointer;
+  width: 125px;
+  height: 125px;
+  background: url('img/hitcircle.png');
+  cursor: pointer;
 }
 
 img {
-    margin-left: 2.5rem;
-    margin-top: 2.2rem;
+  margin-left: 2.5rem;
+  margin-top: 2.2rem;
 }
 
 body {
-    background-image: url("img/1614441349_54-p-temnii-fon-dlya-chata-66.jpg");
-    background-size: cover;
+  background-image: url('img/1614441349_54-p-temnii-fon-dlya-chata-66.jpg');
+  background-size: cover;
 }
 
 #math-example {
-    color: #fff;
-    text-align: center;
-    font-size: 3rem;
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
+  color: #fff;
+  text-align: center;
+  font-size: 3rem;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
 }
 
 .circle-text {
-    color: #fff;
-    margin-left: 2rem;
-    padding-top: 1.5rem;
-    font-size: 3.5rem;
-    font-weight: bold;
-    font-family: Arial;
+  color: #fff;
+  margin-left: 2rem;
+  padding-top: 1.5rem;
+  font-size: 3.5rem;
+  font-weight: bold;
+  font-family: Arial;
 }
 
-#settings-buttons { margin-top: 15rem; margin-left: 5rem; }
+#settings-buttons {
+  margin-top: 15rem;
+  margin-left: 5rem;
+}
 
 .button-settings {
-    width: 20rem;
-    height: 3rem;
-    display: block;
+  width: 20rem;
+  height: 3rem;
+  display: block;
 }
 
-#maxRangeText { 
-    margin-left: 1rem;
-    background: black;
-    width: 18rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1rem;
-    margin-top: 2rem;
+#maxRangeText {
+  margin-left: 1rem;
+  background: black;
+  width: 18rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  margin-top: 2rem;
 }
 
 #add-range-btn {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #decrease-range-btn {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 #streak-text {
-    font-size: 2rem;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-right: 4rem;
+  font-size: 2rem;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 4rem;
 }
