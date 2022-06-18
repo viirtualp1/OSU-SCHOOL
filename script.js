@@ -67,11 +67,10 @@ function updateProgress(value) {
 }
 
 function init() {
-  // удаление пред. circles
   clearCircles();
 
   // массив для вариантов ответов (circles)
-  let numbers = new Array(4).fill(0).map(randNumbers);
+  const numbers = new Array(4).fill(0).map(randNumbers);
 
   // массив с примерами (на вычитание и сложение)
   const mathExamples = [
@@ -88,10 +87,10 @@ function init() {
     mathExampleCreate.answer + getRandId(1, 20),
     mathExampleCreate.answer,
   ]);
+
   // добавление функции при клике на circle и проверка на совпадение с правильным ответом
   checkAnswer(mathExampleCreate.answer);
 
-  // вставка макс. диапазона для создания примера
   document.querySelector('#maxRangeText').innerHTML = `Макс. диапазон: ${context.maxRange}`;
 
   // создание таймера на решение примера
@@ -100,30 +99,23 @@ function init() {
 
 // добавление функции при клике на circle и проверка ответа
 function checkAnswer(correctAnswer) {
-  // перебор каждого из circle
   for (let i = 0; i < 3; i++) {
-    // получение текущего circle
     const circle = document.querySelector(`#circle${i}`);
 
-    // добавление ему события click
     circle.addEventListener('click', () => {
       const isCorrect = circle.childNodes[0].dataset.answer == correctAnswer;
-      // в Id добавлено число в circle, его мы сравниваем с правильным ответом на пример и вызываем уведомление
       if (isCorrect) {
         notification('Правильно!', true);
       } else {
         notification('Неправильно!', false);
       }
 
-      // перезагружаем игру
       reloadGame(false);
     });
   }
 }
 
-// уведомления (правильно/нет)
 function notification(text, isCorrect) {
-  // тоаст (sweetalert2)
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-start',
@@ -136,28 +128,24 @@ function notification(text, isCorrect) {
     },
   });
 
-  // иконка и текст toast
   Toast.fire({
     icon: isCorrect ? 'success' : 'error',
     title: text,
   });
 
-  // вызов функции стрик
   streak(isCorrect);
 }
 
 // стрик
 function streak(isCorrect) {
-  // если isCorrect == true, то мы добавляем к счетчику комбо +1, иначе присваимаем 0
   context.streakCounter = isCorrect ? context.streakCounter + 1 : 0;
-  // обновляем текст счетчика комбо
   document.querySelector('#streak-text').innerHTML = `Комбо: ${context.streakCounter}`;
 }
 
 // функция создания примера
 function mathExample(numbers) {
   // выбираем один из двух рандомных примеров
-  example = numbers[getRandId(0, numbers.length)];
+  const example = numbers[getRandId(0, numbers.length)];
   // вставляем его в
   document.querySelector('#math-example').innerHTML = `${example.example} = ?`;
 
