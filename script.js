@@ -1,39 +1,36 @@
-// фукнция для генерации числа от min до max чисел
 const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-// получаем див, где будет происходить игра)
-const game = document.querySelector('#game');
-
-// макс. диапазон чисел для создания примера
-let maxRange = 20;
-
-// счетчик комбо
-let streakCounter = 0;
+// получаем див, где будет происходить игра
+const gameElement = document.querySelector('#game');
 
 // здесь будет храниться таймер до перезагрузки страницы, если юзер не ответил на пример за 5 сек
 let timerToLose;
 
 // здесь будет храниться интервал для обновления прогресс бара
-let timerUpdateProgressBar;
+let intervalUpdateProgressBar;
 
-// начальная ширина прогресс бара
-let widthProgress = 100;
+// переменные состояния
+let context = {
+  maxRange: 20,
+  widthProgress: 100,
+  streakCounter: 0,
+};
 
-// Запускаем игру
 init();
 
-// увеличить диапазон чисел при создании примера
 function addRange() {
-  maxRange += 5;
-  reloadGame(false);
-}
-// уменьшить диапазон чисел при создании примера
-function decreaseRange() {
-  maxRange > 20 ? (maxRange -= 5) : 20;
+  context.maxRange += 5;
   reloadGame(false);
 }
 
-// перемешать массив с числами, которые будут в circles (варианты ответов на пример)
+function decreaseRange() {
+  if (context.maxRange > 20) {
+    context.maxRange - 5;
+  }
+
+  reloadGame(false);
+}
+
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
@@ -52,24 +49,34 @@ function shuffle(array) {
 function randNumbers() {
   let numbers = [];
 
-  for (let i = 0; i < 2; i++) numbers.push(getRandId(1, maxRange));
+  for (let i = 0; i < 2; i++) numbers.push(getRandId(1, context.maxRange));
 
   return numbers;
 }
 
-// ининицализация игры
+function getMathProblem(num1, num2) {
+  return {
+    example: `${num1} + ${num2}`,
+    answer: num1 + num2,
+  };
+}
+
+function updateProgress(value) {
+  context.widthProgress = value;
+  document.querySelector('#progress-bar-timer').style.width = `${value}%`;
+}
+
 function init() {
   // удаление пред. circles
   clearCircles();
 
   // массив для вариантов ответов (circles)
-  let numbers = [];
-  for (let i = 0; i < 4; i++) numbers.push(randNumbers());
+  let numbers = new Array(4).fill(0).map(randNumbers);
 
   // массив с примерами (на вычитание и сложение)
   const mathExamples = [
-    { example: `${numbers[0][0]} + ${numbers[0][1]}`, answer: numbers[0][0] + numbers[0][1] },
-    { example: `${numbers[3][0]} - ${numbers[3][1]}`, answer: numbers[3][0] - numbers[3][1] },
+    getMathProblem(numbers[0][0], numbers[0][1]),
+    getMathProblem(numbers[3][0], numbers[3][1]),
   ];
 
   // создание примера
@@ -85,7 +92,7 @@ function init() {
   checkAnswer(mathExampleCreate.answer);
 
   // вставка макс. диапазона для создания примера
-  document.querySelector('#maxRangeText').innerHTML = `Макс. диапазон: ${maxRange}`;
+  document.querySelector('#maxRangeText').innerHTML = `Макс. диапазон: ${context.maxRange}`;
 
   // создание таймера на решение примера
   initTimer();
@@ -100,10 +107,13 @@ function checkAnswer(correctAnswer) {
 
     // добавление ему события click
     circle.addEventListener('click', () => {
+      const isCorrect = circle.childNodes[0].dataset.answer == correctAnswer;
       // в Id добавлено число в circle, его мы сравниваем с правильным ответом на пример и вызываем уведомление
-      circle.childNodes[0].id == correctAnswer
-        ? notification('Правильно!', true)
-        : notification('Неправильно!', false);
+      if (isCorrect) {
+        notification('Правильно!', true);
+      } else {
+        notification('Неправильно!', false);
+      }
 
       // перезагружаем игру
       reloadGame(false);
@@ -139,9 +149,9 @@ function notification(text, isCorrect) {
 // стрик
 function streak(isCorrect) {
   // если isCorrect == true, то мы добавляем к счетчику комбо +1, иначе присваимаем 0
-  streakCounter = isCorrect ? (streakCounter += 1) : 0;
+  context.streakCounter = isCorrect ? context.streakCounter + 1 : 0;
   // обновляем текст счетчика комбо
-  document.querySelector('#streak-text').innerHTML = `Комбо: ${streakCounter}`;
+  document.querySelector('#streak-text').innerHTML = `Комбо: ${context.streakCounter}`;
 }
 
 // функция создания примера
@@ -158,33 +168,43 @@ function createCircle(circleNumber = [num1, num2, num3]) {
   shuffle(circleNumber);
 
   for (let i = 0; i < 3; i++) {
+    const num = circleNumber[i];
+    const isNumberIsPrimeNumber = (num < 9 && num > 0) || num === 0;
+
     const circle = document.createElement('div');
+    const circleText = document.createElement('p');
 
     const randIdLeft = getRandId(0, 500);
     const randIdTop = getRandId(0, 100);
 
-    circle.innerHTML = `<p class="circle-text" id="${circleNumber[i]}">${circleNumber[i]}</p>`;
+    circleText.className = 'circle-text';
+    circleText.setAttribute('data-answer', num);
+    circleText.innerText = num;
 
     circle.className = `circle`;
     circle.id = `circle${i}`;
     circle.style.marginLeft = `${randIdLeft}px`;
     circle.style.marginTop = `${randIdTop}px`;
 
-    game.appendChild(circle);
-  }
+    gameElement.appendChild(circle);
+    circle.appendChild(circleText);
 
-  circleNumber.forEach((num) => {
-    if ((num < 9 && num > 0) || num == 0) document.getElementById(num).style.marginLeft = '3rem';
-  });
+    if (isNumberIsPrimeNumber) {
+      circleText.style.marginLeft = '3rem';
+    }
+  }
 }
 
 function clearCircles() {
-  game.innerHTML = ``;
+  gameElement.innerHTML = ``;
 }
 
 function initTimer() {
-  timerUpdateProgressBar = setInterval(() => {
-    document.querySelector('#progress-bar-timer').style.width = `${(widthProgress -= 20)}%`;
+  if (intervalUpdateProgressBar) clearInterval(intervalUpdateProgressBar);
+  if (timerToLose) clearInterval(timerToLose);
+
+  intervalUpdateProgressBar = setInterval(() => {
+    updateProgress(context.widthProgress - 20);
   }, 1000);
 
   timerToLose = setTimeout(() => reloadGame(true), 6000);
@@ -192,11 +212,12 @@ function initTimer() {
 
 function reloadGame(lose) {
   clearTimeout(timerToLose);
-  clearInterval(timerUpdateProgressBar);
-  widthProgress = 100;
-  document.querySelector('#progress-bar-timer').style.width = `100%`;
+  clearInterval(intervalUpdateProgressBar);
+  updateProgress(100);
 
-  lose ? streak(false) : null;
+  if (lose) {
+    streak(false);
+  }
 
   init();
 }
