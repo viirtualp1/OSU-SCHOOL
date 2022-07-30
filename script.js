@@ -25,7 +25,7 @@ function addRange() {
 
 function decreaseRange() {
   if (context.maxRange > 20) {
-    context.maxRange - 5;
+    context.maxRange -= 5;
   }
 
   reloadGame(false);
@@ -35,7 +35,7 @@ function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
 
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
@@ -79,7 +79,7 @@ function init() {
   ];
 
   // создание примера
-  mathExampleCreate = mathExample(mathExamples);
+  const mathExampleCreate = mathExample(mathExamples);
 
   // создание circles, два рандомных числа (ответ - рандЧисло(1, 10), ответ + рандЧисло(1, 20), правильный ответ)
   createCircle([
@@ -103,7 +103,11 @@ function checkAnswer(correctAnswer) {
     const circle = document.querySelector(`#circle${i}`);
 
     circle.addEventListener('click', () => {
-      const isCorrect = circle.childNodes[0].dataset.answer == correctAnswer;
+      const userAnswer = parseInt(circle.childNodes[0].dataset.answer);
+      correctAnswer = parseInt(correctAnswer);
+
+      const isCorrect = userAnswer === correctAnswer;
+
       if (isCorrect) {
         notification('Правильно!', true);
       } else {
@@ -136,10 +140,17 @@ function notification(text, isCorrect) {
   streak(isCorrect);
 }
 
-// стрик
+function checkCombo() {
+  if (context.streakCounter % 5 === 0) {
+    context.maxRange += 5;
+  }
+}
+
 function streak(isCorrect) {
   context.streakCounter = isCorrect ? context.streakCounter + 1 : 0;
   document.querySelector('#streak-text').innerHTML = `Комбо: ${context.streakCounter}`;
+
+  checkCombo();
 }
 
 // функция создания примера
@@ -152,7 +163,7 @@ function mathExample(numbers) {
   return example;
 }
 
-function createCircle(circleNumber = [num1, num2, num3]) {
+function createCircle(circleNumber = []) {
   shuffle(circleNumber);
 
   for (let i = 0; i < 3; i++) {
@@ -199,8 +210,7 @@ function initTimer() {
 }
 
 function reloadGame(lose) {
-  clearTimeout(timerToLose);
-  clearInterval(intervalUpdateProgressBar);
+  clearAllTimers();
   updateProgress(100);
 
   if (lose) {
@@ -208,4 +218,9 @@ function reloadGame(lose) {
   }
 
   init();
+}
+
+function clearAllTimers() {
+  clearTimeout(timerToLose);
+  clearInterval(intervalUpdateProgressBar);
 }
