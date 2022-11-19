@@ -1,7 +1,9 @@
 const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
+const isMobile = navigator.userAgentData.mobile;
+
 // получаем див, где будет происходить игра
-const gameElement = document.querySelector('#game');
+const gameElement = document.querySelector("#game");
 
 // здесь будет храниться таймер до перезагрузки страницы, если юзер не ответил на пример за 5 сек
 let timerToLose;
@@ -63,11 +65,11 @@ function getMathProblem(num1, num2) {
 
 function updateProgress(value) {
   context.widthProgress = value;
-  document.querySelector('#progress-bar-timer').style.width = `${value}%`;
+  document.querySelector("#progress-bar-timer").style.width = `${value}%`;
 }
 
 function init() {
-  clearCircles();
+  gameElement.innerHTML = ``;
 
   // массив для вариантов ответов (circles)
   const numbers = new Array(4).fill(0).map(randNumbers);
@@ -91,7 +93,7 @@ function init() {
   // добавление функции при клике на circle и проверка на совпадение с правильным ответом
   checkAnswer(mathExampleCreate.answer);
 
-  document.querySelector('#maxRangeText').innerHTML = `Макс. диапазон: ${context.maxRange}`;
+  document.querySelector("#maxRangeText").innerHTML = `Макс. диапазон: ${context.maxRange}`;
 
   // создание таймера на решение примера
   initTimer();
@@ -102,16 +104,16 @@ function checkAnswer(correctAnswer) {
   for (let i = 0; i < 3; i++) {
     const circle = document.querySelector(`#circle${i}`);
 
-    circle.addEventListener('click', () => {
+    circle.addEventListener("click", () => {
       const userAnswer = parseInt(circle.childNodes[0].dataset.answer);
       correctAnswer = parseInt(correctAnswer);
 
       const isCorrect = userAnswer === correctAnswer;
 
       if (isCorrect) {
-        notification('Правильно!', true);
+        notification("Правильно!", true);
       } else {
-        notification('Неправильно!', false);
+        notification("Неправильно!", false);
       }
 
       reloadGame(false);
@@ -122,35 +124,35 @@ function checkAnswer(correctAnswer) {
 function notification(text, isCorrect) {
   const Toast = Swal.mixin({
     toast: true,
-    position: 'top-start',
+    position: "top-start",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
 
   Toast.fire({
-    icon: isCorrect ? 'success' : 'error',
+    icon: isCorrect ? "success" : "error",
     title: text,
   });
 
   streak(isCorrect);
 }
 
-function checkCombo() {
-  if (context.streakCounter % 5 === 0) {
+function checkCombo(isCorrect) {
+  if (context.streakCounter % 5 === 0 && isCorrect) {
     context.maxRange += 5;
   }
 }
 
 function streak(isCorrect) {
   context.streakCounter = isCorrect ? context.streakCounter + 1 : 0;
-  document.querySelector('#streak-text').innerHTML = `Комбо: ${context.streakCounter}`;
+  document.querySelector("#streak-text").innerHTML = `Комбо: ${context.streakCounter}`;
 
-  checkCombo();
+  checkCombo(false);
 }
 
 // функция создания примера
@@ -158,9 +160,16 @@ function mathExample(numbers) {
   // выбираем один из двух рандомных примеров
   const example = numbers[getRandId(0, numbers.length)];
   // вставляем его в
-  document.querySelector('#math-example').innerHTML = `${example.example} = ?`;
+  document.querySelector("#math-example").innerHTML = `${example.example} = ?`;
 
   return example;
+}
+
+function getIndents() {
+  return {
+    left: getRandId(0, window.innerWidth / 2),
+    top: getRandId(0, 20),
+  };
 }
 
 function createCircle(circleNumber = []) {
@@ -170,32 +179,28 @@ function createCircle(circleNumber = []) {
     const num = circleNumber[i];
     const isNumberIsPrimeNumber = (num < 9 && num > 0) || num === 0;
 
-    const circle = document.createElement('div');
-    const circleText = document.createElement('p');
+    const circle = document.createElement("div");
+    const circleText = document.createElement("p");
 
-    const randIdLeft = getRandId(0, 500);
-    const randIdTop = getRandId(0, 100);
+    const circleIndents = getIndents();
 
-    circleText.className = 'circle-text';
-    circleText.setAttribute('data-answer', num);
+    circleText.className = "circle-text";
+    circleText.setAttribute("data-answer", num);
     circleText.innerText = num;
 
     circle.className = `circle`;
     circle.id = `circle${i}`;
-    circle.style.marginLeft = `${randIdLeft}px`;
-    circle.style.marginTop = `${randIdTop}px`;
+
+    circle.style.marginLeft = `${circleIndents.left}px`;
+    circle.style.marginTop = `${circleIndents.top}px`;
 
     gameElement.appendChild(circle);
     circle.appendChild(circleText);
 
     if (isNumberIsPrimeNumber) {
-      circleText.style.marginLeft = '3rem';
+      circleText.style.marginLeft = "3rem";
     }
   }
-}
-
-function clearCircles() {
-  gameElement.innerHTML = ``;
 }
 
 function initTimer() {

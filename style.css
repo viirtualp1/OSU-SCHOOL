@@ -1,25 +1,33 @@
-.circle {
-  width: 125px;
-  height: 125px;
-  background: url('img/hitcircle.png');
-  cursor: pointer;
-}
-
-img {
-  margin-left: 2.5rem;
-  margin-top: 2.2rem;
+html {
+  height: 100%;
 }
 
 body {
-  background-image: url('img/1614441349_54-p-temnii-fon-dlya-chata-66.jpg');
+  background-image: url("img/1614441349_54-p-temnii-fon-dlya-chata-66.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.circle {
+  width: 125px;
+  height: 125px;
+  background: url("img/hitcircle.png");
+  cursor: pointer;
+}
+
+.container {
+  margin-top: 24px;
+}
+
+.settings {
+  border-radius: 0;
 }
 
 #math-example {
   color: #fff;
   text-align: center;
   font-size: 3rem;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   font-weight: bold;
 }
 
@@ -33,24 +41,29 @@ body {
 }
 
 #settings-buttons {
-  margin-top: 15rem;
-  margin-left: 5rem;
+  width: 100%;
+  margin-left: auto;
+}
+
+#settings-buttons:first-child {
+  margin-top: 24px;
 }
 
 .button-settings {
-  width: 20rem;
-  height: 3rem;
+  width: 240px;
+  height: 40px;
+  margin: auto;
   display: block;
 }
 
 #maxRangeText {
-  margin-left: 1rem;
+  width: 300px;
+  margin: auto;
+  border-radius: 15px;
   background: black;
-  width: 18rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding: 5px 5px 10px 0;
   margin-top: 2rem;
+  text-align: center;
 }
 
 #add-range-btn {
@@ -66,8 +79,7 @@ body {
 #streak-text {
   font-size: 2rem;
   color: #fff;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin-right: 4rem;
+  position: absolute;
+  bottom: 14px;
+  right: 24px;
 }
