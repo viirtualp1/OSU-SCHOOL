@@ -1,6 +1,6 @@
 const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-const isMobile = navigator.userAgentData.mobile;
+const isMobile = navigator.userAgentData && navigator.userAgentData.mobile;
 
 // получаем див, где будет происходить игра
 const gameElement = document.querySelector("#game");
