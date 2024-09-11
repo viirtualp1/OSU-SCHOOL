@@ -1,3 +1,11 @@
+/* To fix:
+     1. Не вмещаются 3-ех значные числа в Circle
+     2. Ставить паузу когда открыто меню
+   
+   TODO:
+     1. BPM Tester
+*/
+
 const getRandId = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const isMobile = navigator.userAgentData && navigator.userAgentData.mobile;
