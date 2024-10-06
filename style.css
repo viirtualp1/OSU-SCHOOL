@@ -8,22 +8,43 @@ body {
   background-repeat: no-repeat;
 }
 
-.circle {
-  width: 125px;
-  height: 125px;
-  background: url("img/hitcircle.png");
-  cursor: pointer;
-}
-
 .container {
   margin-top: 24px;
 }
 
 .settings {
-  border-radius: 0;
+  max-width: 330px;
 }
 
-#math-example {
+.settings__button {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin: auto;
+}
+
+.settings__button:nth-of-type(2) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.settings__button:nth-of-type(3) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.settings__range {
+  width: 300px;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 6px 6px 10px 0;
+  text-align: center;
+  border-radius: 15px;
+  color: #fff;
+  background: black;
+}
+
+.game__example {
   color: #fff;
   text-align: center;
   font-size: 3rem;
@@ -31,7 +52,14 @@ body {
   font-weight: bold;
 }
 
-.circle-text {
+.game__circle {
+  width: 125px;
+  height: 125px;
+  background: url("img/hitcircle.png");
+  cursor: pointer;
+}
+
+.game__circle-text {
   color: #fff;
   margin-left: 2rem;
   padding-top: 1.5rem;
@@ -40,46 +68,10 @@ body {
   font-family: Arial;
 }
 
-#settings-buttons {
-  width: 100%;
-  margin-left: auto;
-}
-
-#settings-buttons:first-child {
-  margin-top: 24px;
-}
-
-.button-settings {
-  width: 240px;
-  height: 40px;
-  margin: auto;
-  display: block;
-}
-
-#maxRangeText {
-  width: 300px;
-  margin: auto;
-  border-radius: 15px;
-  background: black;
-  padding: 5px 5px 10px 0;
-  margin-top: 2rem;
-  text-align: center;
-}
-
-#add-range-btn {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-#decrease-range-btn {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-#streak-text {
-  font-size: 2rem;
-  color: #fff;
+.game__streak {
   position: absolute;
   bottom: 14px;
   right: 24px;
+  font-size: 2rem;
+  color: #fff;
 }

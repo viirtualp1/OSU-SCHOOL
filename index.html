@@ -5,63 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="icon/favicon-96x96.png"
+    />
     <title>osu! School</title>
-    <link rel="icon" type="image/png" sizes="96x96" href="icon/favicon-96x96.png" />
-    <meta name="theme-color" content="#ffffff" />
   </head>
   <body>
     <button
-      class="btn btn-dark settings"
+      class="btn btn-dark"
       type="button"
       data-bs-toggle="offcanvas"
-      data-bs-target="#settings"
-      aria-controls="offcanvasExample"
+      data-bs-target="#offcanvas"
+      aria-controls="offcanvas"
     >
       ☰
     </button>
 
     <div
-      class="offcanvas offcanvas-start text-bg-dark"
+      class="offcanvas offcanvas-start settings text-bg-dark"
+      id="offcanvas"
       tabindex="-1"
-      id="settings"
-      aria-labelledby="settings"
     >
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="settings-title">Настройки</h5>
-        <button
-          type="button"
-          class="btn-close bg-white"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <h5 class="offcanvas-title">Настройки</h5>
       </div>
       <div class="offcanvas-body">
-        <button class="btn btn-primary button-settings" onclick="reloadGame(false)">
+        <button
+          class="btn btn-primary settings__button"
+          onclick="reloadGame(false)"
+        >
           Обновить
         </button>
         <hr />
-        <button class="btn btn-primary button-settings" id="add-range-btn" onclick="addRange()">
+        <button class="btn btn-primary settings__button" onclick="addRange()">
           Увеличить диапазон
         </button>
         <button
-          class="btn btn-primary button-settings"
-          id="decrease-range-btn"
+          class="btn btn-primary settings__button"
           onclick="decreaseRange()"
         >
           Уменьшить диапазон
         </button>
 
-        <h3 class="text-white" id="maxRangeText"></h3>
+        <h3 class="settings__range"></h3>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container game">
       <div class="progress">
         <div
           class="progress-bar progress-bar-striped"
@@ -71,18 +70,19 @@
         ></div>
       </div>
 
-      <div id="math-example"></div>
+      <div class="game__example"></div>
 
-      <div id="game"></div>
-      <div id="streak-text">Комбо: 0</div>
+      <div class="game__content"></div>
+      <div class="game__streak">Комбо: 0</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="script.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/script.js"></script>
   </body>
 </html>
